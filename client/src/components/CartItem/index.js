@@ -8,3 +8,12 @@ import { idbPromise } from "../../utils/helpers";
 
 const CartItem = ({ item }) => {
     const dispatch = useDispatch();
+
+    // remove item with matching item._id from cart
+    const removeFromCart = item => {
+        dispatch({
+            type: REMOVE_FROM_CART,
+            _id: item._id
+        });
+        idbPromise('cart', 'delete', { ...item });
+    };
