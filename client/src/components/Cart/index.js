@@ -7,3 +7,9 @@ import { useLazyQuery } from '@apollo/client';
 
 // import stripe dependency
 import { loadStripe } from '@stripe/stripe-js';
+
+// import utils dependencies
+import { TOGGLE_CART, ADD_MULTIPLE_TO_CART } from '../../utils/actions';
+import { QUERY_CHECKOUT } from '../../utils/queries';
+import { idbPromise } from '../../utils/helpers';
+import Auth from '../../utils/auth';
