@@ -36,3 +36,15 @@ const Cart = () => {
             });
         }
     }, [data]);
+
+    // if cart.length or dispatch is updated, get items from session and populate cart if it is empty
+    useEffect(() => {
+        async function getCart() {
+            const cart = await idbPromise('cart', 'get');
+            dispatch({ type: ADD_MULTIPLE_TO_CART, products: [...cart] });
+        }
+
+        if (!state.cart.length) {
+            getCart();
+        }
+    }, [state.cart.length, dispatch]);
