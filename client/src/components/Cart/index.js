@@ -54,3 +54,11 @@ const Cart = () => {
         dispatch({ type: TOGGLE_CART });
     }
 
+    // loop through each item in cart, mutiply item.price by the item.purchaseQuantity, and then add to the sum
+    function calculateTotal() {
+        let sum = 0;
+        state.cart.forEach((item) => {
+            sum += item.price * item.purchaseQuantity;
+        });
+        return sum.toFixed(2);
+    }
