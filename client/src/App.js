@@ -29,3 +29,16 @@ import OrderHistory from './pages/OrderHistory';
 const httpLink = createHttpLink({
     uri: '/graphql',
 });
+
+// create request middleware
+const authLink = setContext((_, { headers }) => {
+  // get the token from local storage 
+  const token = localStorage.getItem('id_token');
+  // return the headers to the context
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : '',
+    },
+  };
+});
