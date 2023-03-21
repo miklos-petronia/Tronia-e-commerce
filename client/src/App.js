@@ -25,3 +25,7 @@ import Nav from './components/Nav';
 import Success from './pages/Success';
 import OrderHistory from './pages/OrderHistory';
 
+// create main GraphQL API endpoint
+const httpLink = createHttpLink({
+    uri: '/graphql',
+});
