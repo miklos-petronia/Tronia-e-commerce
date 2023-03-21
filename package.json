@@ -19,5 +19,9 @@
     "engines": {
         "node": "16.x",
         "npm": "7.x"
+    },
+    "dependencies": {
+        "dialogflow": "^1.2.0",
+        "uuid": "^9.0.0"
     }
 }
