@@ -47,3 +47,14 @@ function Detail() {
                 idbPromise('products', 'put', product);
             });
         }
+
+        // get cache from idb
+        else if (!loading) {
+            idbPromise('products', 'get').then((indexedProducts) => {
+                dispatch({
+                    type: UPDATE_PRODUCTS,
+                    products: indexedProducts,
+                });
+            });
+        }
+    }, [products, data, loading, dispatch, id]);
