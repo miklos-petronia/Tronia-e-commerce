@@ -16,3 +16,6 @@ import Auth from '../../utils/auth';
 
 // import component
 import CartItem from '../CartItem';
+
+// import style
+import './style.css';
