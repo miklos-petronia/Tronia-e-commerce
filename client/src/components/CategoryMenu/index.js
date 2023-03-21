@@ -15,3 +15,16 @@ function CategoryMenu() {
     const state = useSelector(state => state);
     const { categories } = state;
     const { loading, data: categoryData } = useQuery(QUERY_CATEGORIES);
+
+    // if categoryData, loading, or dispatch is updated, update category
+    useEffect(() => {
+        // retrieved from server
+        if (categoryData) {
+            dispatch({
+                type: UPDATE_CATEGORIES,
+                categories: categoryData.categories,
+            });
+            categoryData.categories.forEach((category) => {
+                idbPromise('categories', 'put', category);
+            });
+        } 
