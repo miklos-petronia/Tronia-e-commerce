@@ -18,3 +18,14 @@ import { idbPromise } from '../utils/helpers';
 
 // import component
 import Cart from '../components/Cart';
+
+// import assset
+import spinner from '../assets/spinner.gif';
+
+function Detail() {
+    const dispatch = useDispatch();
+    const state = useSelector(state => state);
+    const { id } = useParams();
+    const [currentProduct, setCurrentProduct] = useState({});
+    const { products, cart } = state;
+    const { loading, data } = useQuery(QUERY_PRODUCTS);
