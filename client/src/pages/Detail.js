@@ -29,3 +29,21 @@ function Detail() {
     const [currentProduct, setCurrentProduct] = useState({});
     const { products, cart } = state;
     const { loading, data } = useQuery(QUERY_PRODUCTS);
+
+    // if data, loading, or dispatch is updated, update products
+    useEffect(() => {
+        // already in global store
+        if (products.length) {
+            setCurrentProduct(products.find((product) => product._id === id));
+        }
+        // retrieved from server
+        else if (data) {
+            dispatch({
+                type: UPDATE_PRODUCTS,
+                products: data.products,
+            });
+
+            data.products.forEach((product) => {
+                idbPromise('products', 'put', product);
+            });
+        }
