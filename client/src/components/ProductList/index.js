@@ -12,3 +12,35 @@ import { idbPromise } from '../../utils/helpers';
 
 // import component
 import ProductItem from '../ProductItem';
+
+// import assset
+import spinner from '../../assets/spinner.gif';
+
+function ProductList() {
+    const dispatch = useDispatch();
+    const state = useSelector(state => state);
+    const { currentCategory } = state;
+    const { loading, data } = useQuery(QUERY_PRODUCTS);
+
+    // if data, loading, or dispatch is updated, update products
+    useEffect(() => {
+        // retrieved from server
+        if (data) {
+            dispatch({
+                type: UPDATE_PRODUCTS,
+                products: data.products,
+            });
+            data.products.forEach((product) => {
+                idbPromise('products', 'put', product);
+            });
+        }
+        // get cache from idb
+        else if (!loading) {
+            idbPromise('products', 'get').then((products) => {
+                dispatch({
+                    type: UPDATE_PRODUCTS,
+                    products: products,
+                });
+            });
+        }
+    }, [data, loading, dispatch]);
