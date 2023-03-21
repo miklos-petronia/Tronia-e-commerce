@@ -28,3 +28,14 @@ function CategoryMenu() {
                 idbPromise('categories', 'put', category);
             });
         } 
+
+        // get cache from idb
+        else if (!loading) {
+            idbPromise('categories', 'get').then((categories) => {
+                dispatch({
+                    type: UPDATE_CATEGORIES,
+                    categories: categories,
+                });
+            });
+        }
+    }, [categoryData, loading, dispatch]);
