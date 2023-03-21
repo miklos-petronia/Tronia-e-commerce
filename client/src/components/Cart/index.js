@@ -48,3 +48,9 @@ const Cart = () => {
             getCart();
         }
     }, [state.cart.length, dispatch]);
+
+    // toggle car when cart icon is clicked
+    function toggleCart() {
+        dispatch({ type: TOGGLE_CART });
+    }
+
