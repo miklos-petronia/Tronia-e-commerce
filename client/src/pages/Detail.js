@@ -58,3 +58,25 @@ function Detail() {
             });
         }
     }, [products, data, loading, dispatch, id]);
+
+    // update cart quantity if itemInCart exists; otherwise add to cart 
+    const addToCart = () => {
+        const itemInCart = cart.find((cartItem) => cartItem._id === id);
+        if (itemInCart) {
+            dispatch({
+                type: UPDATE_CART_QUANTITY,
+                _id: id,
+                purchaseQuantity: parseInt(itemInCart.purchaseQuantity) + 1,
+            });
+            idbPromise('cart', 'put', {
+                ...itemInCart,
+                purchaseQuantity: parseInt(itemInCart.purchaseQuantity) + 1,
+            });
+        } else {
+            dispatch({
+                type: ADD_TO_CART,
+                product: { ...currentProduct, purchaseQuantity: 1 },
+            });
+            idbPromise('cart', 'put', { ...currentProduct, purchaseQuantity: 1 });
+        }
+    };
