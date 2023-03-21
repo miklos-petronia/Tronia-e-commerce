@@ -11,3 +11,6 @@ import {
     createHttpLink,
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
+
+// import the store file
+import store from './utils/store';
