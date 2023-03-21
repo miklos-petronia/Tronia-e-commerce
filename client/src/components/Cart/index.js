@@ -27,3 +27,12 @@ const Cart = () => {
     const dispatch = useDispatch();
     const state = useSelector(state => state);
     const [getCheckout, { data }] = useLazyQuery(QUERY_CHECKOUT);
+
+    // if data is updated, and data object exists, redirect to checkout referencing sessionId
+    useEffect(() => {
+        if (data) {
+            stripePromise.then((res) => {
+                res.redirectToCheckout({ sessionId: data.checkout.session });
+            });
+        }
+    }, [data]);
